@@ -6,13 +6,21 @@ spring:
     banner-mode: "off"
   web:
     resources:
-      add-mappings: false
+      add-mappings: true
   threads:
     virtual:
       enabled: true
   jackson:
     deserialization:
       accept-empty-string-as-null-object: true
+      
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    display-request-duration: true
+  api-docs.path: /api-docs
+  packages-to-scan: com.example.formapp.controller
 
 logging:
   level:

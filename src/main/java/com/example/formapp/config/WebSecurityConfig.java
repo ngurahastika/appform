@@ -41,7 +41,7 @@ public class WebSecurityConfig {
 	SecurityFilterChain loginAndHealthChain(HttpSecurity http) throws Exception {
 		log.info("loginAndHealthChain");
 
-		http.securityMatcher("/api/v1/auth/login", "/api/health/check").csrf(AbstractHttpConfigurer::disable)
+		http.securityMatcher("/api/v1/auth/login", "/api/health/check", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/api-docs/**" ).csrf(AbstractHttpConfigurer::disable)
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests(
 						auth -> auth.requestMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().permitAll())

@@ -61,7 +61,7 @@ public class RestControllerAdvisor extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(ForbiddenException.class)
 	public ResponseEntity<Object> handleBadRequest(ForbiddenException ex) {
-		logger.error("BadRequestException", ex);
+		logger.error("ForbiddenException", ex);
 		BaseRes body = new BaseRes<>();
 		body.setReqId(MDC.get(LoggerConstant.REQ_ID));
 		body.setMessage(ex.getMessage());
