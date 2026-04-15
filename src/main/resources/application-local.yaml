@@ -1,0 +1,78 @@
+server:
+  port: 9002
+
+spring:
+  main:
+    banner-mode: "off"
+  web:
+    resources:
+      add-mappings: false
+  threads:
+    virtual:
+      enabled: true
+  jackson:
+    deserialization:
+      accept-empty-string-as-null-object: true
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    com.example: INFO
+    org.hibernate: ERROR
+
+security:
+  authorization:
+    jwt:
+      LOGIN:
+        secret: gKp/mElELj4iqAS5P1Jw2PcWzBIgaPZEzqNvHDHxx+XBUp6l8a4Oo6U8kOsmRqriBwVeDG8uHlBOAXlmCYFCuQ==
+        expired: 600
+        saltkey: asAV234CNSc
+  cors:
+    allowedOrigin: "*"
+    allowedMethod: GET,POST,PUT,DELETE,OPTIONS
+  user:
+    maxRefreshToken: 10
+
+datasource:
+  appform:
+    selfDatasource: true
+    jdbc-url: jdbc:postgresql://localhost:5435/appform
+    username: appform
+    password: p@ssw0rd123
+    jndiName: jdbc/appform
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 5
+      idleTimeout: 30000
+      maxLifetime: 30000
+      connectionTimeout: 30000
+      poolName: appformPool
+      driver-class-name: org.postgresql.Driver
+    dsProperies:
+      hibernate.show_sql: "false"
+      hibernate.jdbc.batch_size: "100"
+      hibernate.jdbc.fetch_size: "100"
+      hibernate.order_inserts: "true"
+      hibernate.order_updates: "true"
+      hibernate.batch_versioned_data: "true"
+      hibernate.use_sql_comments: "false"
+      hibernate.jdbc.lob.non_contextual_creation: "true"
+      hibernate.jdbc.batch_style: "jdbc"
+
+cache:
+  config:
+    internal:
+      session:
+        expired: 10
+        capacity: 100
+        size: 1000
+      uprofile:
+        expired: 10
+        capacity: 100
+        size: 1000
+      allowedDomain:
+        expired: 120
+        capacity: 100
+        size: 1000
