@@ -7,13 +7,13 @@
     </appender>
      
     <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/opt/tomcat/app/logs/app-ems_repository.log</file>
+        <file>/app/logs/app-form.log</file>
         <encoder>
             <pattern>%d %-5level %logger.%M\(%line\) %X{REQ_ID} %X{ID_USER} - %msg%n</pattern>
         </encoder>
          
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>/opt/tomcat/app/logs/app-ems_repository-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/app/logs/app-form-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>2MB</maxFileSize>
             <maxHistory>30</maxHistory>
             <totalSizeCap>10MB</totalSizeCap>

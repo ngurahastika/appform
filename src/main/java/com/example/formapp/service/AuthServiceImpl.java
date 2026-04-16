@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.jboss.logging.MDC;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.example.formapp.config.SecurityConfig;
 import com.example.formapp.constants.CacheConstant;
 import com.example.formapp.constants.CommonConstant;
 import com.example.formapp.constants.ErrorConstants;
+import com.example.formapp.constants.LoggerConstant;
 import com.example.formapp.constants.MessageConstant;
 import com.example.formapp.dto.BaseRes;
 import com.example.formapp.dto.JwtDto;
@@ -86,6 +88,7 @@ public class AuthServiceImpl implements AuthService {
 		dto.setName(user.getName());
 		dto.setIpAddress(datas.get("ipAddress"));
 		dto.setLang(datas.get("lang"));
+		MDC.put(LoggerConstant.ID_USER, user.getId());
 
 		return new UsernamePasswordAuthenticationToken(dto, null, Collections.emptyList());
 	}
@@ -146,10 +149,9 @@ public class AuthServiceImpl implements AuthService {
 			claims.put("AY", session);
 			claims.put("ZZ", CommonUtils.generateId());
 
-			JwtDto jwt = this.tokenProvider.generateTokenDto(JwtType.LOGIN, claims, "ems-repo");
+			JwtDto jwt = this.tokenProvider.generateTokenDto(JwtType.LOGIN, claims, "app-form");
 
 			long exp = jwt.getExpired() - (System.currentTimeMillis() / 1000);
-			log.info("exp : {}", exp);
 			this.internalCacheService.saveCache(CacheConstant.SESSION_USER, String.valueOf(user.getId()), session);
 
 			LoginDto loginDto = new LoginDto();
@@ -196,7 +198,7 @@ public class AuthServiceImpl implements AuthService {
 			claims.put("AY", userSession.getSid());
 			claims.put("ZZ", CommonUtils.generateId());
 
-			JwtDto jwt = this.tokenProvider.generateTokenDto(JwtType.LOGIN, claims, "ems-repo");
+			JwtDto jwt = this.tokenProvider.generateTokenDto(JwtType.LOGIN, claims, "app-form");
 
 			LoginDto loginDto = new LoginDto();
 
